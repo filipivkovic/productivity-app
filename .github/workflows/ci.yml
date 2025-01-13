@@ -13,19 +13,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Step 1: Check out code
     - name: Checkout code
       uses: actions/checkout@v3
 
+    # Step 2: Set up Python
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: 3.12.5
 
+    # Step 3: Install dependencies
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    # Step 4: Navigate to Django project directory (if applicable)
+    - name: Change to Django project directory
+      working-directory: backend  # Update this to match your project structure
+      run: echo "Switched to backend directory"
+
+    # Step 5: Run Django tests
     - name: Run Tests
-      run: |
-        python manage.py test
+      working-directory: backend  # Update this to match your project structure
+      run: python manage.py test
